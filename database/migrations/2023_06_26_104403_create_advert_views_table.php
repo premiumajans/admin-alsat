@@ -8,21 +8,17 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('advert_descriptions', function (Blueprint $table) {
+        Schema::create('advert_views', function (Blueprint $table) {
             $table->id();
             $table->unsignedBiginteger('advert_id')->unsigned();
-            $table->longText('title');
-            $table->longText('short_description');
-            $table->longText('description');
-            $table->integer('salary');
-            $table->string('owner');
-            $table->string('phone');
+            $table->integer('phone_view')->default(0);
+
             $table->foreign('advert_id')->references('id')
                 ->on('adverts')->onDelete('cascade');
         });
     }
     public function down(): void
     {
-        Schema::dropIfExists('advert_descriptions');
+        Schema::dropIfExists('advert_views');
     }
 };
