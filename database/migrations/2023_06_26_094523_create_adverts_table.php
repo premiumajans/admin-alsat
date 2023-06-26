@@ -15,6 +15,9 @@ return new class extends Migration {
             $table->boolean('vip_status')->default(0);
             $table->boolean('premium_status')->default(0);
             $table->boolean('market')->default(0);
+            $table->integer('phone_view')->default(0);
+            $table->boolean('admin_status')->default(0);
+            $table->integer('owner_type')->default(1);
             $table->timestamps();
             $table->timestamp('approved_time')->nullable();
             $table->dateTime('end_time')->default(DB::raw('DATE_ADD(NOW(), INTERVAL 1 MONTH)'));
