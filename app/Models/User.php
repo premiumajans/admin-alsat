@@ -12,8 +12,9 @@ use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Permission\Traits\HasPermissions;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Activitylog\LogOptions;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
     use HasRoles,
         HasPermissions,
@@ -21,9 +22,17 @@ class User extends Authenticatable
         HasFactory,
         HasProfilePhoto,
         Notifiable,
-        TwoFactorAuthenticatable,
-        LogsActivity;
+        TwoFactorAuthenticatable;
 
+
+    public function adverts(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Advert::class);
+    }
+    public function company(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Company::class);
+    }
     protected $fillable = [
         'name',
         'email',
@@ -42,8 +51,18 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function getActivitylogOptions(): LogOptions
+    public function getJWTIdentifier()
     {
-        return LogOptions::defaults()->logOnly(['name', 'email', 'password','login']);
+        return $this->getKey();
+    }
+
+    /**
+     * Return a key-value array of custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }

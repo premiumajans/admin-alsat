@@ -47,7 +47,7 @@ class PermissionsSeeder extends Seeder
             $singPer->name = $single;
             list($group) = explode(' ', $single);
             $singPer->group_name = $group;
-            $singPer->guard_name = 'web';
+            $singPer->guard_name = 'admin';
             $singPer->save();
         }
     }

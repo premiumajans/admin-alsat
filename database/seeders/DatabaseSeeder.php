@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use App\Models\About;
 use App\Models\AboutTranslation;
 use App\Models\Admin;
+use App\Models\Advert;
 use App\Models\MetaTag;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -23,11 +24,12 @@ class DatabaseSeeder extends Seeder
             EducationSeeder::class,
             ExperienceSeeder::class,
             SalarySeeder::class,
-            AdminSeeder::class,
             PermissionsSeeder::class,
             UserSeeder::class,
+            AdminSeeder::class,
             PackageSeeder::class,
             TermSeeder::class,
         ]);
+        Advert::create();
     }
 }

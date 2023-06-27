@@ -28,8 +28,23 @@ Route::get('/vacancies/{id}', [\App\Http\Controllers\Api\VacancyController::clas
 Route::post('/vacancies/{id}/update', [\App\Http\Controllers\Api\VacancyController::class, 'update']);
 Route::post('/vacancies/{id}/delete', [\App\Http\Controllers\Api\VacancyController::class, 'deleteVacancy']);
 Route::get('/vacancy/count', [\App\Http\Controllers\Api\VacancyController::class, 'count']);
-
 Route::get('/my-items/', [\App\Http\Controllers\Api\VacancyController::class, 'myItems']);
+
+//Adverts
+Route::get('/adverts', [\App\Http\Controllers\Api\AdvertController::class, 'index']);
+Route::get('/adverts/all', [\App\Http\Controllers\Api\AdvertController::class, 'all']);
+Route::get('/adverts/{id}', [\App\Http\Controllers\Api\AdvertController::class, 'show']);
+Route::get('/adverts/{id}/premium', [\App\Http\Controllers\Api\AdvertController::class, 'premium']);
+Route::get('/adverts/{id}/vip', [\App\Http\Controllers\Api\AdvertController::class, 'vip']);
+Route::post('/adverts/{id}/update', [\App\Http\Controllers\Api\AdvertController::class, 'update']);
+Route::post('/adverts/{id}/delete', [\App\Http\Controllers\Api\AdvertController::class, 'delete']);
+Route::get('/advert/count', [\App\Http\Controllers\Api\AdvertController::class, 'count']);
+
+//Wishlist
+Route::get('wishlist/{id}/add', [\App\Http\Controllers\Api\WishlistController::class, 'add']);
+Route::get('wishlist/{id}/remove', [\App\Http\Controllers\Api\WishlistController::class, 'remove']);
+Route::get('wishlist/items', [\App\Http\Controllers\Api\WishlistController::class, 'items']);
+
 
 Route::group(['prefix' => '/', 'as' => 'api.'], function () {
     Route::resource('settings', Setting::class)->only(['index', 'show']);

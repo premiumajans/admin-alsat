@@ -3,8 +3,9 @@
 namespace App\Services;
 
 use App\Models\Admin;
+use App\Models\User;
 use Exception;
-use Illuminate\Auth\AuthenticationException;
+//use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\{
     Auth,
     Hash,
@@ -20,27 +21,24 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class UserService
 {
-    /**
-     * @throws AuthenticationException
-     */
     public function login(array $credentials): \Illuminate\Http\JsonResponse
     {
-        if (!Auth::guard('admin')->attempt($credentials)) {
+        if (!Auth::attempt($credentials)) {
             return response()->json([
                 'message' => 'Unauthorized',
             ], 401);
         }
-        $user = Auth::guard('admin')->user();
+        $user = Auth::user();
         if (!$user) {
             return response()->json([
                 'message' => 'User not found',
             ], 404);
         }
-        $hasCompany = $user->company()->exists();
+       // $hasCompany = $user->company()->exists();
         $token = JWTAuth::fromUser($user);
         return response()->json([
             'user' => $user,
-            'company' => $hasCompany,
+           // 'company' => $hasCompany,
             'authorisation' => [
                 'token' => $token,
                 'type' => 'bearer',
@@ -71,7 +69,7 @@ class UserService
     }
     public function register(array $data): \Illuminate\Http\JsonResponse
     {
-        $user = new Admin();
+        $user = new User();
         $user->name = $data['name'];
         $user->email = $data['email'];
         $user->current_ad_count = 1;
@@ -90,14 +88,14 @@ class UserService
 
     public function forgotPassword(string $email): array
     {
-        if (!Admin::where('email', $email)->exists()) {
+        if (!User::where('email', $email)->exists()) {
             return [
                 'status' => 'error',
                 'message' => 'user-not-found',
                 'statusCode' => 404,
             ];
         }
-        $user = Admin::where('email', $email)->first();
+        $user = User::where('email', $email)->first();
         $user->reset_token = md5($email);
         $user->save();
         $data = [
@@ -121,12 +119,12 @@ class UserService
 
     public function resetPassword(array $data): \Illuminate\Http\JsonResponse
     {
-        if (!Admin::where('email', $data['email'])->exists()) {
+        if (!User::where('email', $data['email'])->exists()) {
             return response()->json([
                 'message' => 'email-not-found',
             ], 500);
         }
-        $user = Admin::where('email', $data['email'])->first();
+        $user = User::where('email', $data['email'])->first();
         if ($data['token'] !== $user->reset_token) {
             return response()->json([
                 'message' => 'token-is-not-match-email',
@@ -222,7 +220,7 @@ class UserService
 
     public function logout(): \Illuminate\Http\JsonResponse
     {
-        Auth::guard('admin')->logout();
+        Auth::logout();
         return response()->json([
             'message' => 'logged-out-successfully',
         ], 200);
