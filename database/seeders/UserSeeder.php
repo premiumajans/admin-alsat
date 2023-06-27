@@ -10,11 +10,10 @@ class UserSeeder extends Seeder
 {
     public function run()
     {
-        $admin = User::create([
-            'name' => 'Admin AlSat',
-            'email' => 'admin@alsat.az',
+        $user = User::create([
+            'name' => 'User AlSat',
+            'email' => 'user@alsat.az',
             'password' => '$2y$10$hcn0QuYc5NOiKrjaNMGNIeITHW3bzJ6UeTVWWg/1ZaFQ8eXX1Incm' //Password
         ]);
-        $admin->givePermissionTo(Permission::all());
     }
 }

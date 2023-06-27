@@ -34,14 +34,21 @@ use App\Http\Controllers\Backend\PackagesController as BPackage;
 use App\Http\Controllers\Backend\PackageComponentController as BPackageComponent;
 use App\Http\Controllers\Backend\SiteUsersController as BSiteUsers;
 use App\Http\Controllers\Backend\TermController as BTerm;
+use App\Http\Controllers\Backend\AuthController as BAuth;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 
 Route::get('/auth/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/auth/login', [AuthenticatedSessionController::class, 'store'])->name('loginPost');
+Route::post('/auth/login', [AuthController::class, 'login'])->name('loginPost');
 
-Route::group(['middleware' => 'auth:web'], function () {
+//Route::group(['name' => 'auth'], function () {
+//    Route::get('login', [BAuth::class, 'showLoginForm'])->name('loginForm');
+//    Route::post('loginAdmin', [BAuth::class, 'login'])->name('login');
+//    Route::post('logout', [BAuth::class, 'logout'])->name('logout');
+//});
+
+Route::group(['middleware' => 'auth:admin'], function () {
     Route::get('/', [BHome::class, 'index']);
     Route::get('/change-language/{lang}', [LChangeLan::class, 'switchLang'])->name('switchLang');
     Route::get('/', [BHome::class, 'index'])->name('index');

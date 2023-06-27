@@ -20,7 +20,7 @@ class TokenMiddleware
             } else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException) {
                 return response()->json(['status' => 'token_is_expired'], 401);
             } else {
-                return response()->json(['status' => 'token-not-found'], 401);
+                return response()->json(['status' => 'token_not_found'], 401);
             }
         }
         return $next($request);

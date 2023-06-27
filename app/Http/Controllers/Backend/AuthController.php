@@ -20,10 +20,12 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    protected function login(Request $request)
+    public function login(Request $request)
     {
-        if ($this->guard()->attempt($request->only(['email', 'password']))) {
-//            return redirect()->route('backend.login');
+        if ($this->guard()->attempt($request->only(['email', 'password']), $request->remember_me)) {
+            return redirect()->route('backend.dashboard');
+        } else {
+            return back();
         }
     }
 

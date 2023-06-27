@@ -10,11 +10,8 @@ use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    public const HOME = 'admin/dashboard';
-    public const USER = 'user/profile';
-
-
-    public function boot()
+    public const HOME = '/';
+    public function boot(): void
     {
         $this->configureRateLimiting();
 

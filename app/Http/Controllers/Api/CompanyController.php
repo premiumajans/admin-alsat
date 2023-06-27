@@ -11,7 +11,7 @@ use App\Models\PremiumCompany;
 use App\Models\PremiumCompanyHistory;
 use App\Services\PremiumCompanyService;
 use Carbon\Carbon;
-use Illuminate\Auth\AuthenticationException;
+//use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use PharIo\Version\Exception;
@@ -19,10 +19,6 @@ use PharIo\Version\Exception;
 class CompanyController extends Controller
 {
     private PremiumCompanyService $companyService;
-
-    /**
-     * @throws AuthenticationException
-     */
     public function __construct(PremiumCompanyService $companyService)
     {
         $this->middleware('apiMid');

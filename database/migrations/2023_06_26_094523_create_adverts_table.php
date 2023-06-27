@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
@@ -20,7 +21,7 @@ return new class extends Migration {
             $table->integer('owner_type')->default(1);
             $table->timestamps();
             $table->timestamp('approved_time')->nullable();
-            $table->dateTime('end_time')->default(DB::raw('DATE_ADD(NOW(), INTERVAL 1 MONTH)'));
+            $table->dateTime('end_time')->default(Carbon::now()->addMonth());
         });
     }
 
