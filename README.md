@@ -1,1 +1,1 @@
-Vakant - Premium
+Alsat - Premium

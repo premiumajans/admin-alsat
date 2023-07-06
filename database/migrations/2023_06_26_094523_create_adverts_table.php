@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Enums\AdvertStatusEnum;
 use Carbon\Carbon;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -11,6 +12,7 @@ return new class extends Migration {
     {
         Schema::create('adverts', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBiginteger('user_id')->unsigned();
             $table->integer('view_count')->default(0);
             $table->integer('priority')->default(1);
             $table->boolean('vip_status')->default(0);
@@ -19,9 +21,12 @@ return new class extends Migration {
             $table->integer('phone_view')->default(0);
             $table->boolean('admin_status')->default(0);
             $table->integer('owner_type')->default(1);
-            $table->timestamps();
+            $table->integer('advert_status')->default(AdvertStatusEnum::PENDING);
             $table->timestamp('approved_time')->nullable();
             $table->dateTime('end_time')->default(Carbon::now()->addMonth());
+            $table->timestamps();
+            $table->foreign('user_id')->references('id')
+                ->on('users')->onDelete('cascade');
         });
     }
 

@@ -41,6 +41,8 @@ class PermissionsSeeder extends Seeder
             'term edit',
             'appeals index',
             'appeals delete',
+            'feedback index',
+            'feedback delete',
         ];
         foreach ($singlePermissions as $single) {
             $singPer = new \Spatie\Permission\Models\Permission();

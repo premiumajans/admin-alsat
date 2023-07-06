@@ -7,6 +7,7 @@ use App\Models\About;
 use App\Models\AboutTranslation;
 use App\Models\Admin;
 use App\Models\Advert;
+use App\Models\AdvertDescription;
 use App\Models\MetaTag;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -30,6 +31,16 @@ class DatabaseSeeder extends Seeder
             PackageSeeder::class,
             TermSeeder::class,
         ]);
-        Advert::create();
+        $advert = Advert::create([
+            'user_id' => 1,
+        ]);
+        $description = new AdvertDescription();
+        $description->title = 'adas';
+        $description->short_description = 'dadsa';
+        $description->description = 'adas';
+        $description->salary = 3;
+        $description->owner = 'sad';
+        $description->phone = 444454;
+        $advert->description()->save($description);
     }
 }

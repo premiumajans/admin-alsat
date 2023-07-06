@@ -152,6 +152,14 @@
                         </a>
                     </li>
                 @endcan
+                @can('feedback index')
+                    <li>
+                        <a href="{{ route('backend.feedback.index') }}" class="waves-effect">
+                            <i class="fas fa-comment-medical"></i>
+                            <span>@lang('backend.feedback')</span>
+                        </a>
+                    </li>
+                @endcan
                 {{--                @can('faq index')--}}
                 {{--                    <li>--}}
                 {{--                        <a href="{{ route('backend.faq.index') }}" class="waves-effect">--}}

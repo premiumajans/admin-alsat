@@ -21,25 +21,16 @@ class DataCacheService
             return Category::where('status', 1)->get();
         });
     }
-
     public function getCachedCities()
     {
         return $this->getCachedData('cities', function () {
             return City::all();
         });
     }
-
     public function getCachedCountApprovedVacancies()
     {
         return $this->getCachedData('countApprovedVacancies', function () {
             return Vacancy::where('admin_status', 1)->count();
-        });
-    }
-
-    public function getCachedEducations()
-    {
-        return $this->getCachedData('educations', function () {
-            return Education::all();
         });
     }
 
@@ -49,21 +40,6 @@ class DataCacheService
             return SiteLanguage::where('status', 1)->orderBy('id', 'asc')->get();
         });
     }
-
-    public function getCachedExperiences()
-    {
-        return $this->getCachedData('experiences', function () {
-            return Experience::all();
-        });
-    }
-
-    public function getCachedModes()
-    {
-        return $this->getCachedData('modes', function () {
-            return Mode::all();
-        });
-    }
-
     public function getCachedSalaries()
     {
         return $this->getCachedData('salaries', function () {
@@ -88,7 +64,6 @@ class DataCacheService
         } else {
             $data = Cache::get($key);
         }
-
         return $data;
     }
 }

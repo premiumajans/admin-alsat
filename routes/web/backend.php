@@ -108,6 +108,7 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::resource('/packages', BPackage::class);
     Route::resource('/site-users', BSiteUsers::class);
     Route::resource('/appeals', BAppeals::class);
+    Route::resource('/feedback', \App\Http\Controllers\Backend\FeedbackController::class);
     Route::resource('/term', BTerm::class);
     Route::resource('/package-components', BPackageComponent::class);
 
@@ -158,6 +159,7 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::get('/component/{id}/delete', [BPackageComponent::class, 'delete'])->name('delPackageComponent');
     Route::get('/package/{component}/component/{package}/delete', [BPackageComponent::class, 'deletePC'])->name('delPC');
     Route::get('site-users/{id}/delete', [BSiteUsers::class, 'delete'])->name('site-usersDelete');
+    Route::get('feedback/{id}/delete', [\App\Http\Controllers\Backend\FeedbackController::class, 'delete'])->name('deleteFeedback');
 
     //Clear
     Route::get('/clear', function () {

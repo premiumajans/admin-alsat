@@ -34,10 +34,6 @@ class AppServiceProvider extends ServiceProvider
         $countApprovedVacancies = $dataCacheService->getCachedCountApprovedVacancies();
         $countPendingVacancies = $dataCacheService->getCountPendingVacancies();
         $countUpdatedVacancies = $dataCacheService->getCountUpdatedVacancies();
-        $modes = $dataCacheService->getCachedModes();
-        $salaries = $dataCacheService->getCachedSalaries();
-        $experiences = $dataCacheService->getCachedExperiences();
-        $educations = $dataCacheService->getCachedEducations();
         $cities = $dataCacheService->getCachedCities();
         $languages = $dataCacheService->getCachedLanguages();
         $categories = $dataCacheService->getCachedCategories();
@@ -45,10 +41,6 @@ class AppServiceProvider extends ServiceProvider
             'countApprovedVacancies' => $countApprovedVacancies,
             'countPendingVacancies' => $countPendingVacancies,
             'countUpdatedVacancies' => $countUpdatedVacancies,
-            'modes' => $modes,
-            'salaries' => $salaries,
-            'experiences' => $experiences,
-            'educations' => $educations,
             'cities' => $cities,
             'languages' => $languages,
             'locale' => app()->getLocale(),

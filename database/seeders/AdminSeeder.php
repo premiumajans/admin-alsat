@@ -15,7 +15,6 @@ class AdminSeeder extends Seeder
         $admin = Admin::create([
             'name' => 'Admin Alsat',
             'email' => 'admin@alsat.az',
-            'current_ad_count' => 1,
             'password' => '$2y$10$hcn0QuYc5NOiKrjaNMGNIeITHW3bzJ6UeTVWWg/1ZaFQ8eXX1Incm' //Password
         ]);
         $admin->givePermissionTo(Permission::all());

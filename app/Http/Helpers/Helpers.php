@@ -8,7 +8,7 @@ use Intervention\Image\Facades\Image;
 use Symfony\Component\HttpFoundation\Response;
 
 if (!function_exists('upload')) {
-    function upload($path, $file)
+    function upload($path, $file): string|\Illuminate\Http\RedirectResponse
     {
         try {
             $filename = uniqid() . '.webp';
@@ -24,7 +24,7 @@ if (!function_exists('upload')) {
     }
 }
 if (!function_exists('api_upload')) {
-    function api_upload($path, $file)
+    function api_upload($path, $file): string|\Illuminate\Http\RedirectResponse
     {
         try {
             $img = $file;
@@ -59,7 +59,7 @@ if (!function_exists('multi_upload')) {
 }
 
 if (!function_exists('cv_upload')) {
-    function cv_upload($file, $cvName)
+    function cv_upload($file, $cvName): string|\Illuminate\Http\RedirectResponse
     {
         try {
             $img = $file;
@@ -80,6 +80,9 @@ if (!function_exists('checkPermission')) {
     }
 }
 
+/**
+ * @throws Exception
+ */
 function addPermission(string $permissionName): void
 {
     try {

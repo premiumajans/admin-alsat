@@ -11,7 +11,6 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Permission\Traits\HasPermissions;
 use Spatie\Permission\Traits\HasRoles;
-use Spatie\Activitylog\LogOptions;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
@@ -23,15 +22,17 @@ class User extends Authenticatable implements JWTSubject
         HasProfilePhoto,
         Notifiable,
         TwoFactorAuthenticatable;
-
-
-    public function adverts(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function adverts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->belongsToMany(Advert::class);
+        return $this->hasMany(Advert::class);
     }
     public function company(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(Company::class);
+    }
+    public function message(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Message::class, 'chat_participants','user_id','message_id');
     }
     protected $fillable = [
         'name',
@@ -50,18 +51,16 @@ class User extends Authenticatable implements JWTSubject
     protected $appends = [
         'profile_photo_url',
     ];
-
     public function getJWTIdentifier()
     {
         return $this->getKey();
     }
-
     /**
      * Return a key-value array of custom claims to be added to the JWT.
      *
      * @return array
      */
-    public function getJWTCustomClaims()
+    public function getJWTCustomClaims(): array
     {
         return [];
     }

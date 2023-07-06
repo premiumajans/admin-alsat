@@ -15,7 +15,10 @@ class RedirectIfAuthenticated
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
                 if ($guard == 'web') {
-                    return redirect(RouteServiceProvider::HOME);
+                    return response()->json(['message' => 'unauthorized'], 401);
+                    //return redirect(RouteServiceProvider::HOME);
+                }if ($guard == 'api'){
+                    return response()->json(['message' => 'Unauthorized'], 401);
                 }
             }
         }

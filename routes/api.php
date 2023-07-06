@@ -15,6 +15,9 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 Route::get('term', [\App\Http\Controllers\Api\UserController::class, 'term']);
 Route::post('/', [\App\Http\Controllers\Api\DocumentationController::class, 'index'])->name('index');
 
+
+Route::get('/message', [\App\Http\Controllers\Api\MessageController::class, 'message']);
+
 Route::get('/get-company', [\App\Http\Controllers\Api\CompanyController::class, 'index']);
 Route::post('/company-update', [\App\Http\Controllers\Api\CompanyController::class, 'update']);
 Route::post('/company/update/photo', [\App\Http\Controllers\Api\CompanyController::class, 'updatePhoto']);
@@ -33,17 +36,20 @@ Route::get('/my-items/', [\App\Http\Controllers\Api\VacancyController::class, 'm
 //Adverts
 Route::get('/adverts', [\App\Http\Controllers\Api\AdvertController::class, 'index']);
 Route::get('/adverts/all', [\App\Http\Controllers\Api\AdvertController::class, 'all']);
-Route::get('/adverts/{id}', [\App\Http\Controllers\Api\AdvertController::class, 'show']);
-Route::get('/adverts/{id}/premium', [\App\Http\Controllers\Api\AdvertController::class, 'premium']);
-Route::get('/adverts/{id}/vip', [\App\Http\Controllers\Api\AdvertController::class, 'vip']);
-Route::post('/adverts/{id}/update', [\App\Http\Controllers\Api\AdvertController::class, 'update']);
-Route::post('/adverts/{id}/delete', [\App\Http\Controllers\Api\AdvertController::class, 'delete']);
+Route::get('/my-adverts', [\App\Http\Controllers\Api\AdvertController::class, 'adverts']);
+Route::get('/advert/{id}', [\App\Http\Controllers\Api\AdvertController::class, 'show']);
+Route::get('/advert/{id}/premium', [\App\Http\Controllers\Api\AdvertController::class, 'premium']);
+Route::get('/advert/{id}/vip', [\App\Http\Controllers\Api\AdvertController::class, 'vip']);
+Route::post('/advert/{id}/update', [\App\Http\Controllers\Api\AdvertController::class, 'update']);
+Route::post('/advert/{id}/delete', [\App\Http\Controllers\Api\AdvertController::class, 'delete']);
 Route::get('/advert/count', [\App\Http\Controllers\Api\AdvertController::class, 'count']);
 
 //Wishlist
 Route::get('wishlist/{id}/add', [\App\Http\Controllers\Api\WishlistController::class, 'add']);
 Route::get('wishlist/{id}/remove', [\App\Http\Controllers\Api\WishlistController::class, 'remove']);
 Route::get('wishlist/items', [\App\Http\Controllers\Api\WishlistController::class, 'items']);
+//Feedback
+Route::post('feedback', [\App\Http\Controllers\Api\FeedbackController::class, 'store']);
 
 
 Route::group(['prefix' => '/', 'as' => 'api.'], function () {
